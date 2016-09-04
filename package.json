@@ -1,0 +1,19 @@
+{
+  "name": "zhihu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "canvas": "^1.4.0",
+    "cheerio": "^0.22.0",
+    "co": "^4.6.0",
+    "gm": "^1.23.0",
+    "node-tesseract": "^0.2.7",
+    "request": "^2.74.0"
+  }
+}
