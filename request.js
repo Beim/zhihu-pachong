@@ -67,18 +67,14 @@ const getCaptcha = () => {
 
 const getXsrf = () => {
     return new Promise((resolve, reject) => {
-        // const url = 'https://www.zhihu.com/people/chen-er-gou-74-40'
         const url = 'https://www.zhihu.com/'
         https.get(url, (res) => {
-            // let cookie = util.parseCookie(res.rawHeaders)
             let data = ''
             res.setEncoding('utf8')
             res.on('data', (c) => {data += c})
             res.on('end', () => {
                 let $ = cheerio.load(data)
                 let xsrf = $(`input[name='_xsrf']`)[0].attribs.value
-                // resolve([xsrf, cookie])
-                // console.log(`[getXsrf.js]${JSON.stringify(cookie, null, 4)}`)
                 resolve(xsrf)
             })
         })
@@ -100,24 +96,6 @@ const login = (account, password, captcha, _xsrf, cookie = {}) => {
             'Cookie': cookie,
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         })
-        // const headers = {
-        //     'Accept':'*/*',
-        //     'Accept-Encoding':'gzip, deflate, br',
-        //     'Accept-Language':'zh-CN,zh;q=0.8',
-        //     'Cache-Control':'no-cache',
-        //     'Connection':'keep-alive',
-        //     'Content-Length':Buffer.byteLength(querystring.stringify(postData)),
-        //     'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8',
-        //     // 'Cookie':'d_c0="ACBARHnPUwqPTnxRLg7r337xbLP7IPr149E=|1470203115"; _za=372d69e1-a955-4809-9102-99cf2bbd7087; _zap=a2c4fa2e-964d-4588-ae1e-5374301a0050; _xsrf=6b87cd3976b2d4f0ff08532beff22381; _ga=GA1.2.1666868306.1471528502; q_c1=16bae815d8d84e208434980a1dba862c|1472559716000|1472559716000; login="NTk3ODlhYzAxNzlmNDQzYTljNjdiM2U2NGYxNzNiNWY=|1472565234|fa68a21974aabd102ab9a3cec2c540a3038c510e"; __utmt=1; l_cap_id="ZTc1MDA2YjgwMzlhNGFhNTgxNGZjNTJkZWY2YmNhZDM=|1472566209|ca6814b4989566139a50a698d41b38c6908c8df7"; cap_id="ZDY4MGYxMmE3NTM0NDEwMWJlNDA4NmVhNWRlMzYyN2E=|1472566209|4ff64c6be7dc1184dc4fe722c2d7b895d6b0df80"; __utma=51854390.1666868306.1471528502.1472565231.1472565231.1; __utmb=51854390.18.10.1472565231; __utmc=51854390; __utmz=51854390.1472565231.1.1.utmcsr=zhihu.com|utmccn=(referral)|utmcmd=referral|utmcct=/people/chen-er-gou-74-40; __utmv=51854390.000--|2=registration_date=20151126=1^3=entry_date=20160830=1; n_c=1',
-        //     'Cookie': cookie,
-        //     'Host':'www.zhihu.com',
-        //     'Origin':'https://www.zhihu.com',
-        //     'Pragma':'no-cache',
-        //     'Referer':'https://www.zhihu.com/',
-        //     'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/51.0.2704.79 Chrome/51.0.2704.79 Safari/537.36',
-        //     'X-Requested-With':'XMLHttpRequest',
-        //     // 'X-Xsrftoken':'6b87cd3976b2d4f0ff08532beff22381'
-        // }
         const options = {
             hostname: 'www.zhihu.com',
             port: 443,
@@ -333,8 +311,6 @@ const getFriends = (session, user) => {
                             params['offset'] += 20
                         }
                         let ferList = parseInfo(result)
-                        // util.print(feeList)
-                        // util.print(ferList)
                         let hash = {}
                         for (let i of feeList) {
                             hash[i.account] = true
@@ -345,7 +321,6 @@ const getFriends = (session, user) => {
                                 result.push(i)
                             }
                         }
-                        // resolveOut([result, session])
                         let resultObj = {}
                         for (let i of result) {
                             resultObj[i.account] = i
